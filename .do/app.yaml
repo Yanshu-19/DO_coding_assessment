@@ -1,0 +1,35 @@
+name: job-queue-api
+region: nyc
+
+services:
+  - name: api
+    github:
+      repo: YOUR_GITHUB_USER/job-queue-api
+      branch: main
+      deploy_on_push: true
+    dockerfile_path: Dockerfile
+    http_port: 8080
+    instance_count: 1
+    instance_size_slug: apps-s-1vcpu-0.5gb
+    health_check:
+      http_path: /actuator/health
+      initial_delay_seconds: 30
+      period_seconds: 10
+      timeout_seconds: 5
+      success_threshold: 1
+      failure_threshold: 3
+    envs:
+      - key: PORT
+        value: "8080"
+      - key: WORKER_POOL_SIZE
+        value: "3"
+      - key: MAX_ATTEMPTS
+        value: "3"
+      - key: WORK_SLEEP_MIN_MS
+        value: "2000"
+      - key: WORK_SLEEP_MAX_MS
+        value: "5000"
+      - key: FAILURE_RATE_PERCENT
+        value: "30"
+      - key: LOG_LEVEL
+        value: "INFO"

@@ -1,0 +1,11 @@
+app:
+  worker:
+    pool-size: 4
+    max-attempts: 3
+    work-sleep-min-ms: 10
+    work-sleep-max-ms: 20
+    failure-rate-percent: 0
+
+logging:
+  level:
+    com.example.jobqueue: WARN

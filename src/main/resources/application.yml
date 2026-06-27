@@ -1,0 +1,31 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    default-property-inclusion: non_null
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: when_authorized
+
+app:
+  worker:
+    pool-size: ${WORKER_POOL_SIZE:3}
+    max-attempts: ${MAX_ATTEMPTS:3}
+    job-timeout-ms: ${JOB_TIMEOUT_MS:30000}
+    poll-interval-ms: ${WORKER_POLL_INTERVAL_MS:200}
+    work-sleep-min-ms: ${WORK_SLEEP_MIN_MS:2000}
+    work-sleep-max-ms: ${WORK_SLEEP_MAX_MS:5000}
+    failure-rate-percent: ${FAILURE_RATE_PERCENT:30}
+
+logging:
+  level:
+    com.example.jobqueue: ${LOG_LEVEL:INFO}
